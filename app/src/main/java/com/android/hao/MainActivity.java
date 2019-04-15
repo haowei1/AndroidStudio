@@ -11,7 +11,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -21,8 +20,16 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -71,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), MainActivity1.class));
+                initDataOkHttp();
             }
         });
 
@@ -84,29 +91,68 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initDataStringRequest() {
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        StringRequest stringRequest = new StringRequest(uri, new Response.Listener<String>() {
+        new Thread(new Runnable() {
             @Override
-            public void onResponse(String s) {
-                System.out.println("请求成功"+ s);
-                Message message = new Message();
-                message.obj = s;
-                handler.sendMessage(message);
+            public void run() {
+                RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+                StringRequest stringRequest = new StringRequest(uri, new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        System.out.println("Volley请求成功"+ s);
+                        Message message = new Message();
+                        message.obj = s;
+                        handler.sendMessage(message);
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        System.out.println("请求失败" + volleyError);
+                    }
+                }){
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String, String> map = new HashMap<>();
+                        map.put("CarId","1");
+                        return map;
+                    }
+                };
+                requestQueue.add(stringRequest);
             }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError volleyError) {
-                System.out.println("请求失败" + volleyError);
-            }
-        }){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> map = new HashMap<>();
-                map.put("CarId","1");
-                return map;
-            }
-        };
-        requestQueue.add(stringRequest);
+        }).start();
+
     }
 
+    private void initDataOkHttp() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                //1.创建OkHttpClient对象
+                OkHttpClient okHttpClient = new OkHttpClient();
+                //2.通过new FormBody()调用build方法,创建一个RequestBody,可以用add添加键值对
+                RequestBody requestBody = new FormBody.Builder().build();
+                //3.创建Request对象，设置URL地址，将RequestBody作为post方法的参数传入
+                final okhttp3.Request request = new Request.Builder().url(uri).post(requestBody).build();
+                //4.创建一个call对象,参数就是Request请求对象
+                Call call = okHttpClient.newCall(request);
+
+                call.enqueue(new Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+                        System.out.println("请求失败" + e);
+                    }
+
+                    @Override
+                    public void onResponse(Call call, okhttp3.Response response) throws IOException {
+                        if (response.isSuccessful()) {
+                            String body = response.body().string();
+                            System.out.println("OkHttp请求成功" + body);
+                            Message message = new Message();
+                            message.obj = body;
+                            handler.sendMessage(message);
+                        }
+                    }
+                });
+            }
+        }).start();
+    }
 }
