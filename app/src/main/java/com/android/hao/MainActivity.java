@@ -17,6 +17,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
 
 import org.json.JSONObject;
 
@@ -27,6 +28,7 @@ import java.util.Map;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -126,12 +128,19 @@ public class MainActivity extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                Gson gson = new Gson();
+                Map<String,Integer> map = new HashMap<>();
+                map.put("CarId", 1);
+                String json = gson.toJson(map);
+
+                MediaType Json = MediaType.parse("application/json;charset=utf-8");
                 //1.创建OkHttpClient对象
                 OkHttpClient okHttpClient = new OkHttpClient();
                 //2.通过new FormBody()调用build方法,创建一个RequestBody,可以用add添加键值对
-                RequestBody requestBody = new FormBody.Builder().build();
+//                RequestBody requestBody = new FormBody.Builder().add("CarId", 1).build();
+                RequestBody body = RequestBody.create(Json, json);
                 //3.创建Request对象，设置URL地址，将RequestBody作为post方法的参数传入
-                final okhttp3.Request request = new Request.Builder().url(uri).post(requestBody).build();
+                final okhttp3.Request request = new Request.Builder().url(uri).post(body).build();
                 //4.创建一个call对象,参数就是Request请求对象
                 Call call = okHttpClient.newCall(request);
 
