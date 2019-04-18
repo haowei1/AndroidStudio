@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -67,7 +68,7 @@ public class FragmentActivity extends AppCompatActivity {
 
     private void initData() {
 
-        getAllSence(new callBack() {
+        getAllSense(new callBack() {
             @Override
             public void success(List<String> result) {
                 value = result;
@@ -84,14 +85,6 @@ public class FragmentActivity extends AppCompatActivity {
         key.add("PM2.5");
         key.add("道路状态");
 
-//        value = new ArrayList<>();
-//        value.add("32");
-//        value.add("60");
-//        value.add("321");
-//        value.add("223");
-//        value.add("331");
-//        value.add("4");
-
         yu = new ArrayList<>();
         yu.add("30");
         yu.add("80");
@@ -102,7 +95,7 @@ public class FragmentActivity extends AppCompatActivity {
 
     }
 
-    private void getAllSence(final callBack callBack) {
+    private void getAllSense(final callBack callBack) {
         new Thread(new Runnable() {
             @Override
             public void run() {
