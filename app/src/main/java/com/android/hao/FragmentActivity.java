@@ -14,6 +14,7 @@ import android.widget.GridView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.android.hao.utils.SpUtils;
 import com.google.gson.Gson;
 
 import org.json.JSONException;
@@ -57,6 +58,7 @@ public class FragmentActivity extends AppCompatActivity {
         initTimer();
         setContentView(R.layout.fragment_5);
         initView();
+//        new SpUtils(getApplicationContext()).setBoolean("s", true);
     }
 
     private void initTimer() {
