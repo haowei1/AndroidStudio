@@ -30,10 +30,9 @@ public class TestDao {
     /**
      * 测试新增
      */
-    public long insert(int id, String username, String password) {
+    public long insert(String username, String password) {
         SQLiteDatabase db = openHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("id", id);
         values.put("username", username);
         values.put("password", password);
         long l = db.insert("test", null, values);

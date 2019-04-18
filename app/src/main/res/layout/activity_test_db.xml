@@ -7,44 +7,59 @@
     android:padding="20dp"
     tools:context=".TestDBActivity">
 
+    <EditText
+        android:id="@+id/id"
+        android:inputType="number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="input your id" />
+
+    <EditText
+        android:id="@+id/username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="input your username" />
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="input your password" />
+
     <Button
         android:id="@+id/insert"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="insert"
-        android:textSize="20sp"
-        />
+        android:textSize="20sp" />
 
     <Button
         android:id="@+id/delete"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="delete"
-        android:textSize="20sp"
-        />
+        android:textSize="20sp" />
 
     <Button
         android:id="@+id/update"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="update"
-        android:textSize="20sp"
-        />
+        android:textSize="20sp" />
 
     <Button
         android:id="@+id/selectAll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="selectAll"
-        android:textSize="20sp"
-        />
+        android:textSize="20sp" />
+
     <Button
         android:id="@+id/selectByID"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="selectByID"
-        android:textSize="20sp"
-        />
+        android:textSize="20sp" />
 
 
 </LinearLayout>

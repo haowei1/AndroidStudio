@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 import com.android.hao.db.TestDao;
 
@@ -14,6 +15,9 @@ public class TestDBActivity extends AppCompatActivity implements View.OnClickLis
 
     private static final String TAG = "TestDBActivity";
     private TestDao dao;
+    private EditText username, id, password;
+    private String newusername, newpassword;
+    private int id1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +29,9 @@ public class TestDBActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void initUI() {
+        id = findViewById(R.id.id);
+        username = findViewById(R.id.username);
+        password = findViewById(R.id.password);
         findViewById(R.id.insert).setOnClickListener(this);
         findViewById(R.id.delete).setOnClickListener(this);
         findViewById(R.id.update).setOnClickListener(this);
@@ -34,6 +41,12 @@ public class TestDBActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
+        newusername = username.getText().toString().trim();
+        newpassword = password.getText().toString().trim();
+        String s = id.getText().toString().trim();
+        if (s != null && s.equals("")){
+            id1 = Integer.parseInt(s);
+        }
         switch (v.getId()){
             case R.id.insert:
                 insert();
@@ -54,7 +67,7 @@ public class TestDBActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void selectById() {
-        List<Object> list = dao.selectById(1);
+        List<Object> list = dao.selectById(id1);
         if (list != null && list.size() > 0) {
             Log.i(TAG, "selectById: list" + list.toString());
         }
@@ -68,7 +81,7 @@ public class TestDBActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void update() {
-        int i = dao.update(1, "haoweiya", "123123");
+        int i = dao.update(id1, newusername, newpassword);
         if (i > 0) {
             Log.i(TAG, "update: successful");
         } else {
@@ -77,7 +90,7 @@ public class TestDBActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void delete() {
-        int i = dao.delete(1);
+        int i = dao.delete(id1);
         if (i > 0) {
             Log.i(TAG, "delete: successful");
         } else {
@@ -86,7 +99,7 @@ public class TestDBActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void insert() {
-        long l = dao.insert(1, "haoweiya", "123456");
+        long l = dao.insert(newusername, newpassword);
         if (l > 0) {
             Log.i(TAG, "insert: successful");
         } else {
