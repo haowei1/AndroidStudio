@@ -53,8 +53,8 @@ public class FragmentActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initTimer();
         initData();
+        initTimer();
         setContentView(R.layout.fragment_5);
         initView();
     }
