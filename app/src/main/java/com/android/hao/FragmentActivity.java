@@ -2,6 +2,8 @@ package com.android.hao;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -36,15 +38,23 @@ public class FragmentActivity extends AppCompatActivity {
 
     private GridView gv;
     private List<String> key, value, yu;
-    private String uri = "http://192.168.1.3:8890/transportservice/type/jason/action/GetAllSense";
+    private String uri = "http://192.168.1.6:8890/transportservice/type/jason/action/GetAllSense";
     private static final String TAG = "FragmentActivity";
     private Timer timer;
+
+
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            gv.setAdapter(new MyAdapter());
+        }
+    };
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initData();
         initTimer();
+        initData();
         setContentView(R.layout.fragment_5);
         initView();
     }
@@ -55,8 +65,9 @@ public class FragmentActivity extends AppCompatActivity {
             @Override
             public void run() {
                 initData();
+                handler.sendEmptyMessage(0);
             }
-        }, 5000);
+        }, 0, 5000);
     }
 
     private void initView() {
@@ -67,12 +78,17 @@ public class FragmentActivity extends AppCompatActivity {
 
     private void initData() {
 
-        getAllSense(new callBack() {
+        getAllSense(new CallBack() {
             @Override
             public void success(List<String> result) {
-                value = result;
-                Log.i(TAG, "success: result" + result.toString());
-                Log.i(TAG, "success: value" + value.toString());
+                if (value == null) {
+                    value = result;
+                } else {
+                    value.clear();
+                    value = result;
+                }
+//                Log.i(TAG, "success: result" + result.toString());
+//                Log.i(TAG, "success: value" + value.toString());
             }
         });
 
@@ -94,7 +110,7 @@ public class FragmentActivity extends AppCompatActivity {
 
     }
 
-    private void getAllSense(final callBack callBack) {
+    private void getAllSense(final CallBack callBack) {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -165,7 +181,7 @@ public class FragmentActivity extends AppCompatActivity {
         }
 
         @Override
-        public Object getItem(int position) {
+        public String getItem(int position) {
             return key.get(position);
         }
 
@@ -214,8 +230,7 @@ public class FragmentActivity extends AppCompatActivity {
         RelativeLayout rl;
     }
 
-
-    interface callBack {
+    interface CallBack {
         void success(List<String> result);
     }
 
