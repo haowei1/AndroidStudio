@@ -1,4 +1,4 @@
-package com.android.hao;
+package com.android.hao.activity;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -14,13 +14,12 @@ import android.widget.GridView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.android.hao.utils.SpUtils;
-import com.google.gson.Gson;
+import com.android.hao.R;
+import com.android.hao.utils.OkHttpUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -28,18 +27,10 @@ import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-
 public class FragmentActivity extends AppCompatActivity {
 
     private GridView gv;
     private List<String> key, value, yu;
-    private String uri = "http://192.168.1.6:8890/transportservice/type/jason/action/GetAllSense";
     private static final String TAG = "FragmentActivity";
     private Timer timer;
 
@@ -80,17 +71,12 @@ public class FragmentActivity extends AppCompatActivity {
 
     private void initData() {
 
-        getAllSense(new CallBack() {
+        Map<String, String> map = new HashMap<>();
+        map.put("CarId", "1");
+        OkHttpUtils.getDataFromIntent("GetCarSpeed", map, new OkHttpUtils.CallBack() {
             @Override
-            public void success(List<String> result) {
-                if (value == null) {
-                    value = result;
-                } else {
-                    value.clear();
-                    value = result;
-                }
-//                Log.i(TAG, "success: result" + result.toString());
-//                Log.i(TAG, "success: value" + value.toString());
+            public void successful(String string) {
+                value = parseJson(string);
             }
         });
 
@@ -110,46 +96,6 @@ public class FragmentActivity extends AppCompatActivity {
         yu.add("400");
         yu.add("3");
 
-    }
-
-    private void getAllSense(final CallBack callBack) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                Gson gson = new Gson();
-                Map<String, Integer> map = new HashMap<>();
-                map.put("CarId", 1);
-                String json = gson.toJson(map);
-                MediaType Json = MediaType.parse("application/json;charset=utf-8");
-
-                //1.创建OkHttpClient对象
-                OkHttpClient okHttpClient = new OkHttpClient();
-                //2.通过new FormBody()调用build方法,创建一个RequestBody,可以用add添加键值对
-//                RequestBody requestBody = new FormBody.Builder().add("CarId", 1).build();
-                RequestBody body = RequestBody.create(Json, json);
-                //3.创建Request对象，设置URL地址，将RequestBody作为post方法的参数传入
-                final okhttp3.Request request = new Request.Builder().url(uri).post(body).build();
-                //4.创建一个call对象,参数就是Request请求对象
-                Call call = okHttpClient.newCall(request);
-
-                call.enqueue(new Callback() {
-                    @Override
-                    public void onFailure(Call call, IOException e) {
-                        System.out.println("请求失败" + e);
-                    }
-
-                    @Override
-                    public void onResponse(Call call, okhttp3.Response response) throws IOException {
-                        if (response.isSuccessful()) {
-                            String body = response.body().string();
-                            System.out.println("OkHttp请求成功" + body);
-                            List<String> value = parseJson(body);
-                            callBack.success(value);
-                        }
-                    }
-                });
-            }
-        }).start();
     }
 
     private List<String> parseJson(String body) {
@@ -230,10 +176,6 @@ public class FragmentActivity extends AppCompatActivity {
         TextView key;
         TextView value;
         RelativeLayout rl;
-    }
-
-    interface CallBack {
-        void success(List<String> result);
     }
 
     @Override

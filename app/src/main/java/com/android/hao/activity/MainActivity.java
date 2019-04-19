@@ -1,4 +1,4 @@
-package com.android.hao;
+package com.android.hao.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.android.hao.R;
+import com.android.hao.utils.OkHttpUtils;
 import com.android.volley.AuthFailureError;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -43,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
             updateUI(data);
         }
     };
+    private HashMap<String, String> map;
 
     private void updateUI(String data) {
         tv.setText(data);
@@ -66,18 +69,30 @@ public class MainActivity extends AppCompatActivity {
 
         uri = et.getText().toString().trim();
 
+        map = new HashMap<>();
+        map.put("CarId","1");
+
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 initDataStringRequest();
-//                initDataJsonRequest();
             }
         });
 
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                initDataOkHttp();
+                OkHttpUtils.getDataFromIntent("GetAllSense", map, new OkHttpUtils.CallBack() {
+                    @Override
+                    public void successful(final String string) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                tv.setText(string);
+                            }
+                        });
+                    }
+                });
             }
         });
 
@@ -95,6 +110,9 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * volley获取数据
+     */
     private void initDataStringRequest() {
         new Thread(new Runnable() {
             @Override
@@ -122,48 +140,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 };
                 requestQueue.add(stringRequest);
-            }
-        }).start();
-
-    }
-
-    private void initDataOkHttp() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                Gson gson = new Gson();
-                Map<String,Integer> map = new HashMap<>();
-                map.put("CarId", 1);
-                String json = gson.toJson(map);
-
-                MediaType Json = MediaType.parse("application/json;charset=utf-8");
-                //1.创建OkHttpClient对象
-                OkHttpClient okHttpClient = new OkHttpClient();
-                //2.通过new FormBody()调用build方法,创建一个RequestBody,可以用add添加键值对
-//                RequestBody requestBody = new FormBody.Builder().add("CarId", 1).build();
-                RequestBody body = RequestBody.create(Json, json);
-                //3.创建Request对象，设置URL地址，将RequestBody作为post方法的参数传入
-                final okhttp3.Request request = new Request.Builder().url(uri).post(body).build();
-                //4.创建一个call对象,参数就是Request请求对象
-                Call call = okHttpClient.newCall(request);
-
-                call.enqueue(new Callback() {
-                    @Override
-                    public void onFailure(Call call, IOException e) {
-                        System.out.println("请求失败" + e);
-                    }
-
-                    @Override
-                    public void onResponse(Call call, okhttp3.Response response) throws IOException {
-                        if (response.isSuccessful()) {
-                            String body = response.body().string();
-                            System.out.println("OkHttp请求成功" + body);
-                            Message message = new Message();
-                            message.obj = body;
-                            handler.sendMessage(message);
-                        }
-                    }
-                });
             }
         }).start();
     }

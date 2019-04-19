@@ -1,4 +1,4 @@
-package com.android.hao;
+package com.android.hao.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.android.hao.R;
 import com.android.hao.db.TestDao;
 
 import java.util.List;

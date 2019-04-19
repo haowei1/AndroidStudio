@@ -4,7 +4,6 @@ import com.google.gson.annotations.SerializedName;
 
 public class AllSense {
 
-
     /**
      * pm2.5 : 293
      * co2 : 1912
