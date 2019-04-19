@@ -76,6 +76,7 @@ public class FragmentActivity extends AppCompatActivity {
         OkHttpUtils.getDataFromIntent("GetCarSpeed", map, new OkHttpUtils.CallBack() {
             @Override
             public void successful(String string) {
+                Log.i(TAG, "successful: " + string);
                 value = parseJson(string);
             }
         });
