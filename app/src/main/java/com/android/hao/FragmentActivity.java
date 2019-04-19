@@ -120,8 +120,8 @@ public class FragmentActivity extends AppCompatActivity {
                 Map<String, Integer> map = new HashMap<>();
                 map.put("CarId", 1);
                 String json = gson.toJson(map);
-
                 MediaType Json = MediaType.parse("application/json;charset=utf-8");
+
                 //1.创建OkHttpClient对象
                 OkHttpClient okHttpClient = new OkHttpClient();
                 //2.通过new FormBody()调用build方法,创建一个RequestBody,可以用add添加键值对
