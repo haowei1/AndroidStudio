@@ -16,11 +16,11 @@ import okhttp3.Response;
 public class OkHttpUtils {
 
     private static final String TAG = "Test";
-    private static final String ip = "192.168.1.240:8080";
+    private static final String ip = "192.168.1.6:8890";
     private static final String temp = "/transportservice/type/jason/action/";
 
     public static void getDataFromIntent(final String path, final Map<String, String> map, final CallBack callBack) {
-        final String uri = "http://" + ip + temp + path +".do";
+        final String uri = "http://" + ip + temp + path;
         new Thread(new Runnable() {
             @Override
             public void run() {
