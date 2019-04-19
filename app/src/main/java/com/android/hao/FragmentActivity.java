@@ -58,7 +58,7 @@ public class FragmentActivity extends AppCompatActivity {
         initTimer();
         setContentView(R.layout.fragment_5);
         initView();
-//        new SpUtils(getApplicationContext()).setBoolean("s", true);
+//        SpUtils.setBoolean(getApplicationContext(),"isfirst", true);
     }
 
     private void initTimer() {

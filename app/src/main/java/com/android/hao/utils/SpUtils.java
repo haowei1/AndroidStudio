@@ -5,14 +5,9 @@ import android.content.SharedPreferences;
 
 public class SpUtils {
 
-    private Context context;
-    private SharedPreferences sp = context.getSharedPreferences("config", Context.MODE_PRIVATE);
 
-    public SpUtils(Context context) {
-        this.context = context;
-    }
-
-    public void setBoolean(String key, boolean value) {
+    public static void setBoolean(Context context, String key, boolean value) {
+        SharedPreferences sp = context.getSharedPreferences("config", Context.MODE_PRIVATE);
         sp.edit().putBoolean(key, value).commit();
     }
 
