@@ -3,5 +3,14 @@
     <array name="carid">
         <item>1</item>
     </array>
+    
+    <string-array name="traffic">
+        <item>路口升序</item>
+        <item>路口降序</item>
+        <item>红灯升序</item>
+        <item>红灯降序</item>
+        <item>绿灯升序</item>
+        <item>绿灯降序</item>
+    </string-array>
 
 </resources>

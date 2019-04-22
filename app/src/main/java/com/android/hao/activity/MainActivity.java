@@ -93,6 +93,11 @@ public class MainActivity extends AppCompatActivity {
                             }
                         });
                     }
+
+                    @Override
+                    public void exception(Exception e) {
+
+                    }
                 });
             }
         });
@@ -112,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
         btn4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), TrafficLightActivity.class));
+                startActivity(new Intent(getApplicationContext(), NewTrafficLightActivity.class));
             }
         });
     }

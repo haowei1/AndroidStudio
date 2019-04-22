@@ -29,6 +29,7 @@
         <Spinner
             android:layout_toRightOf="@id/tv"
             android:gravity="center_horizontal"
+            android:entries="@array/traffic"
             android:layout_margin="5dp"
             android:id="@+id/spinner"
             android:layout_width="300dp"

@@ -79,6 +79,11 @@ public class FragmentActivity extends AppCompatActivity {
                 Log.i(TAG, "successful: " + string);
                 value = parseJson(string);
             }
+
+            @Override
+            public void exception(Exception e) {
+
+            }
         });
 
         key = new ArrayList<>();
