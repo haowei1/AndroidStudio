@@ -55,6 +55,7 @@ public class NewTrafficLightActivity extends AppCompatActivity {
                     break;
                 case 0:
                     lv.setAdapter(new MyAdapter());
+                    break;
             }
             lv.setAdapter(new MyAdapter());
         }
@@ -80,6 +81,39 @@ public class NewTrafficLightActivity extends AppCompatActivity {
                 msg.obj = string;
                 msg.what = 1;
                 handler.sendMessage(msg);
+                Map<String, String> map2 = new HashMap<>();
+                map2.put("TrafficLightId", "2");
+                OkHttpUtils.getDataFromIntent(path, map2, new OkHttpUtils.CallBack() {
+                    @Override
+                    public void successful(String string) {
+                        Log.e(TAG, "successful: body2" + string);
+                        Message msg = new Message();
+                        msg.obj = string;
+                        msg.what = 2;
+                        handler.sendMessage(msg);
+                        Map<String, String> map3 = new HashMap<>();
+                        map3.put("TrafficLightId", "3");
+                        OkHttpUtils.getDataFromIntent(path, map3, new OkHttpUtils.CallBack() {
+                            @Override
+                            public void successful(String string) {
+                                Log.e(TAG, "successful: body3" + string);
+                                Message msg = new Message();
+                                msg.obj = string;
+                                msg.what = 3;
+                                handler.sendMessage(msg);
+                            }
+                            @Override
+                            public void exception(Exception e) {
+                                Log.e(TAG, "exception: " + e);
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void exception(Exception e) {
+                        Log.e(TAG, "exception: " + e);
+                    }
+                });
             }
             @Override
             public void exception(Exception e) {
@@ -87,40 +121,6 @@ public class NewTrafficLightActivity extends AppCompatActivity {
             }
         });
 
-        Map<String, String> map2 = new HashMap<>();
-        map2.put("TrafficLightId", "2");
-        OkHttpUtils.getDataFromIntent(path, map2, new OkHttpUtils.CallBack() {
-            @Override
-            public void successful(String string) {
-                Log.e(TAG, "successful: body2" + string);
-                Message msg = new Message();
-                msg.obj = string;
-                msg.what = 2;
-                handler.sendMessage(msg);
-            }
-
-            @Override
-            public void exception(Exception e) {
-                Log.e(TAG, "exception: " + e);
-            }
-        });
-
-        Map<String, String> map3 = new HashMap<>();
-        map3.put("TrafficLightId", "3");
-        OkHttpUtils.getDataFromIntent(path, map3, new OkHttpUtils.CallBack() {
-            @Override
-            public void successful(String string) {
-                Log.e(TAG, "successful: body3" + string);
-                Message msg = new Message();
-                msg.obj = string;
-                msg.what = 3;
-                handler.sendMessage(msg);
-            }
-            @Override
-            public void exception(Exception e) {
-                Log.e(TAG, "exception: " + e);
-            }
-        });
     }
 
     private Traffic parser(String string,int temp) {
@@ -157,20 +157,127 @@ public class NewTrafficLightActivity extends AppCompatActivity {
     }
 
     private void order(int temp) {
-        Log.e(TAG, "order: temp:" + temp);
         Log.e(TAG, "order: oldList" + list);
-        Collections.sort(list, new Comparator<Traffic>() {
-            @Override
-            public int compare(Traffic o1, Traffic o2) {
-                if (o1.getId() > o2.getId()){
-                    return 1;
+
+        if (temp == 0) {
+            Collections.sort(list, new Comparator<Traffic>() {
+                @Override
+                public int compare(Traffic o1, Traffic o2) {
+                    if (o1.getId() > o2.getId()){
+                        return 1;
+                    }
+                    if (o1.getId() == o2.getId()){
+                        return 0;
+                    }
+                    return -1;
                 }
-                if (o1.getId() == o2.getId()){
-                    return 0;
+            });
+        }
+        if (temp == 1) {
+            Collections.sort(list, new Comparator<Traffic>() {
+                @Override
+                public int compare(Traffic o1, Traffic o2) {
+                    if (o1.getId() < o2.getId()){
+                        return 1;
+                    }
+                    if (o1.getId() == o2.getId()){
+                        return 0;
+                    }
+                    return -1;
                 }
-                return -1;
-            }
-        });
+            });
+        }
+
+        if (temp == 2) {
+            Collections.sort(list, new Comparator<Traffic>() {
+                @Override
+                public int compare(Traffic o1, Traffic o2) {
+                    if (o1.getRedTime() > o2.getRedTime()){
+                        return 1;
+                    }
+                    if (o1.getId() == o2.getId()){
+                        return 0;
+                    }
+                    return -1;
+                }
+            });
+        }
+        if (temp == 3) {
+            Collections.sort(list, new Comparator<Traffic>() {
+                @Override
+                public int compare(Traffic o1, Traffic o2) {
+                    if (o1.getRedTime() < o2.getRedTime()){
+                        return 1;
+                    }
+                    if (o1.getId() == o2.getId()){
+                        return 0;
+                    }
+                    return -1;
+                }
+            });
+        }
+
+        if (temp == 4) {
+            Collections.sort(list, new Comparator<Traffic>() {
+                @Override
+                public int compare(Traffic o1, Traffic o2) {
+                    if (o1.getGreenTime() > o2.getGreenTime()){
+                        return 1;
+                    }
+                    if (o1.getId() == o2.getId()){
+                        return 0;
+                    }
+                    return -1;
+                }
+            });
+        }
+        if (temp == 5) {
+            Collections.sort(list, new Comparator<Traffic>() {
+                @Override
+                public int compare(Traffic o1, Traffic o2) {
+                    if (o1.getGreenTime() < o2.getGreenTime()){
+                        return 1;
+                    }
+                    if (o1.getId() == o2.getId()){
+                        return 0;
+                    }
+                    return -1;
+                }
+            });
+        }
+
+        if (temp == 6) {
+            Collections.sort(list, new Comparator<Traffic>() {
+                @Override
+                public int compare(Traffic o1, Traffic o2) {
+                    if (o1.getYellowTime() > o2.getYellowTime()){
+                        return 1;
+                    }
+                    if (o1.getId() == o2.getId()){
+                        return 0;
+                    }
+                    return -1;
+                }
+            });
+        }
+        if (temp == 7) {
+            Collections.sort(list, new Comparator<Traffic>() {
+                @Override
+                public int compare(Traffic o1, Traffic o2) {
+                    if (o1.getYellowTime() < o2.getYellowTime()){
+                        return 1;
+                    }
+                    if (o1.getId() == o2.getId()){
+                        return 0;
+                    }
+                    return -1;
+                }
+            });
+        }
+
+        handler.sendEmptyMessage(0);
+        Log.e(TAG, "order: temp:" + temp);
+
         Log.e(TAG, "order: newList" + list);
         handler.sendEmptyMessage(0);
     }

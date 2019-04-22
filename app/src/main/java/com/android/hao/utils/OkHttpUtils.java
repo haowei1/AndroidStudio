@@ -1,7 +1,5 @@
 package com.android.hao.utils;
 
-import android.util.Log;
-
 import com.google.gson.Gson;
 
 import org.json.JSONException;
@@ -20,7 +18,6 @@ import okhttp3.Response;
 
 public class OkHttpUtils {
 
-    private static final String TAG = "Test";
     private static final String ip = "192.168.1.240:8080";
     private static final String temp = "/transportservice/type/jason/action/";
 
@@ -35,14 +32,12 @@ public class OkHttpUtils {
     }
 
     private static void sendOkHttpRequest(Map<String, String> map, String uri, final CallBack callBack) {
-        Log.e(TAG, "sendOkHttpRequest: map" + map);
         //0.创建MediaType类型 说明参数是一个json数据
         MediaType Json = MediaType.parse("application/json;charset=utf-8");
         //1.初始化参数
         Gson gson = new Gson();
         //将map转成json数据
         String json = gson.toJson(map);
-        Log.e(TAG, "sendOkHttpRequest: json" + json);
         //2.创建OkHttpClient对象
         OkHttpClient okHttpClient = new OkHttpClient();
         //3.通过new FormBody()调用build方法,创建一个RequestBody,可以用add添加键值对
@@ -57,13 +52,11 @@ public class OkHttpUtils {
                 e.printStackTrace();
                 callBack.exception(e);
             }
-
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 if (response.isSuccessful()){
                     try {
                         String body = response.body().string();
-                        Log.e(TAG, "onResponse: body" + body);
                         JSONObject jo = new JSONObject(body);
                         String serverinfo = jo.getString("serverinfo");
                         callBack.successful(serverinfo);
@@ -74,7 +67,6 @@ public class OkHttpUtils {
             }
         });
     }
-
     public interface CallBack{
         void successful(String string);
         void exception(Exception e);

@@ -11,6 +11,8 @@
         <item>红灯降序</item>
         <item>绿灯升序</item>
         <item>绿灯降序</item>
+        <item>黄灯升序</item>
+        <item>黄灯降序</item>
     </string-array>
 
 </resources>
