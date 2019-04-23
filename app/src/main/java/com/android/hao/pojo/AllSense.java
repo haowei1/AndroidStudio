@@ -10,6 +10,7 @@ public class AllSense {
      * LightIntensity : 2328
      * humidity : 25
      * temperature : 39
+     * Status : 2
      */
 
     @SerializedName("pm2.5")
@@ -18,6 +19,7 @@ public class AllSense {
     private int LightIntensity;
     private int humidity;
     private int temperature;
+    private int Status;
 
     public int getPm() {
         return pm;
@@ -57,5 +59,25 @@ public class AllSense {
 
     public void setTemperature(int temperature) {
         this.temperature = temperature;
+    }
+
+    public int getStatus() {
+        return Status;
+    }
+
+    public void setStatus(int Status) {
+        this.Status = Status;
+    }
+
+    @Override
+    public String toString() {
+        return "AllSense{" +
+                "pm=" + pm +
+                ", co2=" + co2 +
+                ", LightIntensity=" + LightIntensity +
+                ", humidity=" + humidity +
+                ", temperature=" + temperature +
+                ", Status=" + Status +
+                '}';
     }
 }

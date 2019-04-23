@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.android.hao.R;
+import com.android.hao.pojo.AllSense;
 import com.android.hao.utils.OkHttpUtils;
 import com.android.volley.AuthFailureError;
 import com.android.volley.RequestQueue;
@@ -105,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
         btn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), FragmentActivity.class));
+                startActivity(new Intent(getApplicationContext(), AllSenseActivity.class));
             }
         });
         btn3.setOnClickListener(new View.OnClickListener() {

@@ -7,6 +7,7 @@ public class Traffic {
      * GreenTime : 5
      * RedTime : 5
      */
+
     private int id;
     private int YellowTime;
     private int GreenTime;

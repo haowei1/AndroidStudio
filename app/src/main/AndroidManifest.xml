@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.NewTrafficLightActivity"></activity>
+        <activity android:name=".activity.AllSenseActivity"></activity>
+        <activity android:name=".activity.NewTrafficLightActivity" />
         <activity android:name=".activity.TestDBActivity" />
         <activity android:name=".activity.MainActivity">
             <intent-filter>
@@ -20,7 +21,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.FragmentActivity" />
     </application>
 
 </manifest>
