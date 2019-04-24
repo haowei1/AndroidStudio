@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
         btn6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), BusAcctivity.class));
+                startActivity(new Intent(getApplicationContext(), BusActivity.class));
             }
         });
     }

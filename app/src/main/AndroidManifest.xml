@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.BusAcctivity"></activity>
+        <activity android:name=".activity.BusActivity"></activity>
         <activity android:name=".activity.RedioViewActivity" />
         <activity android:name=".activity.AllSenseActivity" />
         <activity android:name=".activity.NewTrafficLightActivity" />

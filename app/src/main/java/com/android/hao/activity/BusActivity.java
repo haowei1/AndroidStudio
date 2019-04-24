@@ -26,9 +26,9 @@ import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class BusAcctivity extends AppCompatActivity {
+public class BusActivity extends AppCompatActivity {
 
-    private static final String TAG = "BusAcctivity";
+    private static final String TAG = "BusActivity";
     private String path = "GetBusStationInfo";
     private ExpandableListView mElv;
     private List<String> mGroup = new ArrayList<>();
