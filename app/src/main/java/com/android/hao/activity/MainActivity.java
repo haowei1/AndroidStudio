@@ -60,9 +60,9 @@ public class MainActivity extends AppCompatActivity {
         btn6 = findViewById(R.id.btn6);
         et = findViewById(R.id.et);
         tv = findViewById(R.id.tv);
-
+        TextView marquee = findViewById(R.id.marquee);
+        marquee.setSelected(true);
         uri = et.getText().toString().trim();
-
         map = new HashMap<>();
         map.put("CarId","1");
 

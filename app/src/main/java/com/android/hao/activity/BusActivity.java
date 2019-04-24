@@ -106,7 +106,7 @@ public class BusActivity extends AppCompatActivity {
     //[{"Distance":79700,"BusId":1},{"Distance":41000,"BusId":2}]\n
     private void parseJosn(String string) {
         List<Map<String, String>> list = new ArrayList<>();
-        Map<String, String> map = null;
+        Map<String, String> map;
         try {
             JSONArray ja = new JSONArray(string);
             for (int i = 0; i < ja.length(); i++) {

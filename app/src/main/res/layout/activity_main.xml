@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,6 +11,19 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/marquee"
+            android:layout_width="400dp"
+            android:layout_height="wrap_content"
+            android:textSize="26sp"
+            android:singleLine="true"
+            android:layout_gravity="center"
+            android:padding="10dp"
+            android:ellipsize="marquee"
+            android:textColor="#f42"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:text="你好,欢迎使用智慧交通,你可以实时的掌握路况,个人账户,公交,天气,以及停车场等服务."/>
 
         <EditText
             android:id="@+id/et"
