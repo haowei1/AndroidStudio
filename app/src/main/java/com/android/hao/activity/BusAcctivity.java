@@ -23,6 +23,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class BusAcctivity extends AppCompatActivity {
 
@@ -49,8 +51,21 @@ public class BusAcctivity extends AppCompatActivity {
 
         initView();
         initData();
+//        initTimer();
 
     }
+
+//    private void initTimer() {
+//        Timer timer = new Timer();
+//        timer.schedule(new TimerTask() {
+//            @Override
+//            public void run() {
+//                mGroup.clear();
+//                mChild.clear();
+//                initData();
+//            }
+//        }, 0, 3000);
+//    }
 
     private void initData() {
         mGroup.add("一号站台");
@@ -185,9 +200,7 @@ public class BusAcctivity extends AppCompatActivity {
                 viewHolder = (ViewHolder) view.getTag();
             }
             if (mChild != null && mChild.size() > 0) {
-                viewHolder.ctvDis.setText(mChild.get(groupPosition).get(childPosition).get("dis"+childPosition)+"米"
-
-                );
+                viewHolder.ctvDis.setText(mChild.get(groupPosition).get(childPosition).get("dis"+childPosition)+"米");
                 viewHolder.ctvId.setText(mChild.get(groupPosition).get(childPosition).get("id"+childPosition)+"号公交距本站距离:");
             }
             return view;
