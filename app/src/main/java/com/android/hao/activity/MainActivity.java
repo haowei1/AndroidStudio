@@ -34,7 +34,7 @@ import okhttp3.RequestBody;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button btn, btn1, btn2,btn3, btn4, btn5;
+    private Button btn, btn1, btn2,btn3, btn4, btn5, btn6;
     private EditText et;
     private TextView tv;
     private String uri;
@@ -67,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
         btn3 = findViewById(R.id.btn3);
         btn4 = findViewById(R.id.btn4);
         btn5 = findViewById(R.id.btn5);
+        btn6 = findViewById(R.id.btn6);
         et = findViewById(R.id.et);
         tv = findViewById(R.id.tv);
 
@@ -126,6 +127,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), RedioViewActivity.class));
+            }
+        });
+        btn6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), BusAcctivity.class));
             }
         });
     }
