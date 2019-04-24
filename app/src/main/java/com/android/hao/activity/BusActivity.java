@@ -91,14 +91,14 @@ public class BusActivity extends AppCompatActivity {
 
                     @Override
                     public void exception(Exception e) {
-
+                        Log.e(TAG, "exception: " + e);
                     }
                 });
             }
 
             @Override
             public void exception(Exception e) {
-
+                Log.e(TAG, "exception: " + e);
             }
         });
 
