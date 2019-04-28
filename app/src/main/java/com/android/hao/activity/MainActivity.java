@@ -24,7 +24,7 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button btn, btn1, btn2,btn3, btn4, btn5, btn6;
+    private Button btn, btn1, btn2,btn3, btn4, btn5, btn6, btn7;
     private EditText et;
     private TextView tv;
     private String uri;
@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
         btn4 = findViewById(R.id.btn4);
         btn5 = findViewById(R.id.btn5);
         btn6 = findViewById(R.id.btn6);
+        btn7 = findViewById(R.id.btn7);
         et = findViewById(R.id.et);
         tv = findViewById(R.id.tv);
         TextView marquee = findViewById(R.id.marquee);
@@ -123,6 +124,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), BusActivity.class));
+            }
+        });
+
+        btn7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), NotifyActivity.class));
             }
         });
     }
