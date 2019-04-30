@@ -87,6 +87,7 @@ public class ViewPageActivity extends AppCompatActivity {
             container.removeView(list_view.get(position));
         }
 
+
         @Override
         public CharSequence getPageTitle(int position) {
             return list_title.get(position);
