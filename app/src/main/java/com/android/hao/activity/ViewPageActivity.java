@@ -79,7 +79,7 @@ public class ViewPageActivity extends AppCompatActivity {
         @Override
         public Object instantiateItem(@NonNull ViewGroup container, int position) {
             container.addView(list_view.get(position));
-            return list_title.get(position);
+            return list_view.get(position);
         }
 
         @Override
